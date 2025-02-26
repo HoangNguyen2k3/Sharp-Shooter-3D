@@ -5,6 +5,13 @@ public class Pathfinding : MonoBehaviour
 {
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
+    private void Awake()
+    {
+        if (target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
