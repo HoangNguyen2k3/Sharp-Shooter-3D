@@ -5,6 +5,7 @@ public class Pathfinding : MonoBehaviour
 {
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
+    private string PLAYER_STRING = "Player";
     private void Awake()
     {
         if (target == null)
@@ -18,6 +19,15 @@ public class Pathfinding : MonoBehaviour
     }
     private void Update()
     {
+        if (!target) { return; }
         agent.SetDestination(target.position);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(PLAYER_STRING))
+        {
+            EnemyHealth health = GetComponent<EnemyHealth>();
+            health.SelfDestruction();
+        }
     }
 }

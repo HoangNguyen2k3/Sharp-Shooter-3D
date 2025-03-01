@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] public float currentHealth;
     [SerializeField] private float maxHealth;
+    [SerializeField] private ParticleSystem explosion;
 
     private void Start()
     {
@@ -18,7 +19,12 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            SelfDestruction();
         }
+    }
+    public void SelfDestruction()
+    {
+        Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
