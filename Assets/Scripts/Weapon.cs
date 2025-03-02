@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, interaction_layer, QueryTriggerInteraction.Ignore))
         {
             Instantiate(current_weapon.bloom, hit.point, Quaternion.identity);
-            if (hit.collider.GetComponent<EnemyHealth>() != null)
+            if (hit.collider.GetComponentInParent<EnemyHealth>() != null)
             {
                 hit.collider.GetComponentInParent<EnemyHealth>().TakeDamage(current_weapon.damage);
             }

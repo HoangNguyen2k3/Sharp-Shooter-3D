@@ -1,4 +1,5 @@
 using Cinemachine;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Transform weapon_camera;
 
     [SerializeField] private Image[] health_bar;
+    [SerializeField] private GameObject gameOverScreen;
 
     private float currentHealth;
     private void Start()
@@ -27,11 +29,20 @@ public class PlayerHealth : MonoBehaviour
         ChangeHealthBar();
         if (currentHealth <= 0)
         {
-            weapon_camera.parent = null;
-            deathSceneCam.Priority = 20;
-            Destroy(gameObject);
+            GameOver();
         }
     }
+
+    private void GameOver()
+    {
+        weapon_camera.parent = null;
+        deathSceneCam.Priority = 20;
+        gameOverScreen.SetActive(true);
+        StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssetsInputs>();
+        starterAssetsInputs.SetCursorState(false);
+        Destroy(gameObject);
+    }
+
     public void ChangeHealthBar()
     {
         for (int i = 0; i < health_bar.Length; i++)
